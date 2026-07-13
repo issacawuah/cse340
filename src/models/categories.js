@@ -1,13 +1,14 @@
 import db from "./db.js";
 
-async function getAllOrganizations() {
+async function getAllCategories() {
     const SQL = `
         SELECT *
-        FROM organizations;
+        FROM categories
+        ORDER BY category_name;
     `;
 
     const result = await db.query(SQL);
     return result.rows;
 }
 
-export { getAllOrganizations };
+export { getAllCategories };
