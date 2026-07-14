@@ -28,20 +28,36 @@ app.get('/', async (req, res) => {
 });
 
 app.get('/organizations', async (req, res) => {
-  const organizations = await getAllOrganizations();
-  const title = 'Our Partner Organizations';
+  try {
+    const organizations = await getAllOrganizations();
+    const title = 'Our Partner Organizations';
 
-  res.render('organizations', { title, organizations });
+    res.render('organizations', { title, organizations });
+  } catch (err) {
+    console.error('Failed to load organizations:', err);
+    res.render('organizations', {
+      title: 'Our Partner Organizations',
+      organizations: []
+    });
+  }
 });
 
 app.get('/projects', async (req, res) => {
-  const title = 'Service Projects';
-  const projects = await getAllProjects();
+  try {
+    const title = 'Service Projects';
+    const projects = await getAllProjects();
 
-  res.render('projects', {
-    title,
-    projects
-  });
+    res.render('projects', {
+      title,
+      projects
+    });
+  } catch (err) {
+    console.error('Failed to load projects:', err);
+    res.render('projects', {
+      title: 'Service Projects',
+      projects: []
+    });
+  }
 });
 
 app.get("/categories", async (req, res) => {
@@ -53,9 +69,12 @@ app.get("/categories", async (req, res) => {
       categories
     });
   } catch (err) {
-    console.error(err);
+    console.error('Failed to load categories:', err);
 
-    res.status(500).send("Database Error");
+    res.render("categories", {
+      title: "Service Project Categories",
+      categories: []
+    });
   }
 });
 
