@@ -7,9 +7,10 @@ import { getAllProjects } from "./src/models/projects.js";
 import { getAllOrganizations } from "./src/models/organizations.js";
 
 
- 
+
 const NODE_ENV = process.env.NODE_ENV?.toLowerCase() || 'production';
 const PORT = process.env.PORT || 3000;
+const HOST = process.env.HOST || '0.0.0.0';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -43,29 +44,28 @@ app.get('/projects', async (req, res) => {
   });
 });
 
- app.get("/categories", async (req, res) => {
-    try {
-        const categories = await getAllCategories();
+app.get("/categories", async (req, res) => {
+  try {
+    const categories = await getAllCategories();
 
-        res.render("categories", {
-            title: "Service Project Categories",
-            categories
-        });
-    } catch (err) {
-        console.error(err);
+    res.render("categories", {
+      title: "Service Project Categories",
+      categories
+    });
+  } catch (err) {
+    console.error(err);
 
-        res.status(500).send("Database Error");
-    }
+    res.status(500).send("Database Error");
+  }
 });
 
-app.listen(PORT, async () => {
+app.listen(PORT, HOST, async () => {
   try {
     await testConnection();
-    console.log(`Server is running at http://127.0.0.1:${PORT}`);
+    console.log(`Server is running at http://${HOST}:${PORT}`);
     console.log(`Environment: ${NODE_ENV}`);
   } catch (error) {
     console.error('Error connecting to the database:', error);
   }
 });
 
- 
