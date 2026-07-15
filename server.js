@@ -81,7 +81,7 @@ app.get("/categories", async (req, res) => {
 app.listen(PORT, HOST, async () => {
   try {
     await testConnection();
-    console.log(`Server is running at http://${HOST}:${PORT}`);
+    console.log(`Server is running at http://localhost:${PORT}`);
     console.log(`Environment: ${NODE_ENV}`);
   } catch (error) {
     console.error('Error connecting to the database:', error);
