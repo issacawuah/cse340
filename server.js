@@ -7,8 +7,6 @@ import { getAllProjects } from "./src/models/projects.js";
 import { getAllOrganizations } from "./src/models/organizations.js";
 import { testConnection } from './src/models/db.js';
 
-
-
 const NODE_ENV = process.env.NODE_ENV?.toLowerCase() || 'production';
 const PORT = process.env.PORT || 3000;
 const HOST = process.env.HOST || '0.0.0.0';
@@ -88,25 +86,3 @@ app.listen(PORT, async () => {
     console.error('Error connecting to the database:', error);
   }
 });
-
-  if (!dbConfigured) {
-    console.error('Set DB_URL or DATABASE_URL in Render environment variables.');
-    return;
-  }
-
-  try {
-    await testConnection();
-  } catch (error) {
-    console.error('Error connecting to the database:', error.message);
-  }
-});
-app.listen(PORT, async () => {
-  try {
-    await testConnection();
-    console.log(...);
-  } catch (error) {
-    console.error(...);
-  }
-});
-return; // <-- stray return outside any function
-
