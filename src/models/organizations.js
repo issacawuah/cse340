@@ -1,13 +1,12 @@
-import db from "./db.js";
+import db from './db.js'
 
-async function getAllOrganizations() {
-    const SQL = `
-        SELECT *
-        FROM organizations;
+const getAllOrganizations = async () => {
+    const query = `
+        SELECT organization_id, name, description, contact_email, logo_filename
+        FROM public.organization;
     `;
-
-    const result = await db.query(SQL);
+    const result = await db.query(query);
     return result.rows;
 }
 
-export { getAllOrganizations };
+export { getAllOrganizations }

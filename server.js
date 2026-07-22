@@ -1,10 +1,11 @@
 import express from 'express';
 import { fileURLToPath } from 'url';
 import path from 'path';
-import { testConnection } from './src/models/db.js';
+ 
 import { getAllCategories } from "./src/models/categories.js";
 import { getAllProjects } from "./src/models/projects.js";
 import { getAllOrganizations } from "./src/models/organizations.js";
+import { testConnection } from './src/models/db.js';
 
 
 
@@ -78,13 +79,34 @@ app.get("/categories", async (req, res) => {
   }
 });
 
-app.listen(PORT, HOST, async () => {
+app.listen(PORT, async () => {
   try {
     await testConnection();
-    console.log(`Server is running at http://localhost:${PORT}`);
+    console.log(`Server is running at http://127.0.0.1:${PORT}`);
     console.log(`Environment: ${NODE_ENV}`);
   } catch (error) {
     console.error('Error connecting to the database:', error);
   }
 });
+
+  if (!dbConfigured) {
+    console.error('Set DB_URL or DATABASE_URL in Render environment variables.');
+    return;
+  }
+
+  try {
+    await testConnection();
+  } catch (error) {
+    console.error('Error connecting to the database:', error.message);
+  }
+});
+app.listen(PORT, async () => {
+  try {
+    await testConnection();
+    console.log(...);
+  } catch (error) {
+    console.error(...);
+  }
+});
+return; // <-- stray return outside any function
 
